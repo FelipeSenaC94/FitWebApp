@@ -1,4 +1,8 @@
+using FitApp.Controllers;
 using FitApp.Data;
+using FitApp.Services.RegistrarService;
+using FitApp.Services.UsuarioService;
+using FitAppWeb.Services.UsuarioService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -9,6 +13,19 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddControllers();
+builder.Services.AddScoped<IUsuarioInterface, UsuarioServices>();
+builder.Services.AddScoped<IRegistrarInterface, RegistrarServices>();
+
+
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder.WithOrigins("http://localhost:4200")
+               .AllowAnyHeader()
+               .AllowAnyMethod();
+    });
+});
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -31,7 +48,7 @@ if (app.Environment.IsDevelopment())
     options.RoutePrefix = string.Empty;
 });
 }
-
+app.UseCors();
 
 app.UseHttpsRedirection();
 

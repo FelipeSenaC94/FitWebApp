@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FitApp.Migrations
 {
-    public partial class RelacionamentoRegistrarMedida : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -20,8 +20,8 @@ namespace FitApp.Migrations
                     Senha = table.Column<string>(type: "TEXT", nullable: true),
                     Sexo = table.Column<string>(type: "TEXT", nullable: true),
                     Logado = table.Column<bool>(type: "INTEGER", nullable: true),
-                    DataNascimento = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    DataCriacao = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    DataNascimento = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    DataCriacao = table.Column<DateTime>(type: "TEXT", nullable: true),
                     DataAlteracao = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
@@ -35,25 +35,25 @@ namespace FitApp.Migrations
                 {
                     RegistrarId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Altura = table.Column<int>(type: "INTEGER", nullable: false),
-                    Peso = table.Column<double>(type: "REAL", nullable: false),
-                    UsuarioId = table.Column<int>(type: "INTEGER", nullable: true),
-                    DataCriacao = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    Altura = table.Column<int>(type: "INTEGER", nullable: true),
+                    Peso = table.Column<double>(type: "REAL", nullable: true),
+                    UserId = table.Column<int>(type: "INTEGER", nullable: true),
+                    DataCriacao = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Registros", x => x.RegistrarId);
                     table.ForeignKey(
-                        name: "FK_Registros_Usuarios_UsuarioId",
-                        column: x => x.UsuarioId,
+                        name: "FK_Registros_Usuarios_UserId",
+                        column: x => x.UserId,
                         principalTable: "Usuarios",
                         principalColumn: "UserId");
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Registros_UsuarioId",
+                name: "IX_Registros_UserId",
                 table: "Registros",
-                column: "UsuarioId");
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

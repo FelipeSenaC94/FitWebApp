@@ -11,52 +11,55 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FitApp.Migrations
 {
     [DbContext(typeof(AppDataContext))]
-    [Migration("20231115003654_RelacionamentoRegistrarMedida")]
-    partial class RelacionamentoRegistrarMedida
+    [Migration("20231119180417_thirdmig")]
+    partial class thirdmig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.21");
 
-            modelBuilder.Entity("FitApp.Models.Registrar", b =>
+            modelBuilder.Entity("FitApp.Models.RegistrarModel", b =>
                 {
                     b.Property<int>("RegistrarId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Altura")
+                    b.Property<int?>("Altura")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("DataCriacao")
+                    b.Property<DateTime?>("DataCriacao")
                         .HasColumnType("TEXT");
 
-                    b.Property<double>("Peso")
+                    b.Property<double?>("Peso")
                         .HasColumnType("REAL");
 
-                    b.Property<int?>("UsuarioId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("RegistrarId");
 
-                    b.HasIndex("UsuarioId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Registros");
                 });
 
-            modelBuilder.Entity("FitApp.Models.Usuario", b =>
+            modelBuilder.Entity("FitApp.Models.UsuarioModel", b =>
                 {
                     b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime?>("DataAlteracao")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("DataCriacao")
+                    b.Property<DateTime?>("DataCriacao")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("DataNascimento")
+                    b.Property<DateTime?>("DataNascimento")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
@@ -79,16 +82,14 @@ namespace FitApp.Migrations
                     b.ToTable("Usuarios");
                 });
 
-            modelBuilder.Entity("FitApp.Models.Registrar", b =>
+            modelBuilder.Entity("FitApp.Models.RegistrarModel", b =>
                 {
-                    b.HasOne("FitApp.Models.Usuario", "Usuario")
+                    b.HasOne("FitApp.Models.UsuarioModel", null)
                         .WithMany("Registros")
-                        .HasForeignKey("UsuarioId");
-
-                    b.Navigation("Usuario");
+                        .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("FitApp.Models.Usuario", b =>
+            modelBuilder.Entity("FitApp.Models.UsuarioModel", b =>
                 {
                     b.Navigation("Registros");
                 });

@@ -14,21 +14,19 @@ namespace FitApp.Data
         {
 
         }
-        public DbSet<Usuario>? Usuarios { get; set; }
-        public DbSet<Registrar>? Registros { get; set; }
+        public DbSet<UsuarioModel>? Usuarios { get; set; }
+        public DbSet<RegistrarModel>? Registros { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Usuario>()
-            .HasKey(x => x.UserId);
+            modelBuilder.Entity<UsuarioModel>()
+            .HasMany(u => u.Registros)
+            .WithOne()
+            .HasForeignKey(m => m.UserId)
+            .OnDelete(DeleteBehavior.Cascade); //adicionar essa linha para poder excluir em cascata
+            
 
-            modelBuilder.Entity<Registrar>()
-            .HasKey(x => x.RegistrarId);
-
-            modelBuilder.Entity<Registrar>()
-            .HasOne(x => x.Usuario)
-            .WithMany(u => u.Registros)  // Aqui, indicamos que Usuario tem muitos Registros
-            .HasForeignKey(e => e.UsuarioId);
+            base.OnModelCreating(modelBuilder);
         }
 
     }

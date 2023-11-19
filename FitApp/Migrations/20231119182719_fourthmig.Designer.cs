@@ -3,6 +3,7 @@ using System;
 using FitApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FitApp.Migrations
 {
     [DbContext(typeof(AppDataContext))]
-    partial class AppDataContextModelSnapshot : ModelSnapshot
+    [Migration("20231119182719_fourthmig")]
+    partial class fourthmig
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.21");
@@ -25,9 +27,6 @@ namespace FitApp.Migrations
 
                     b.Property<int?>("Altura")
                         .HasColumnType("INTEGER");
-
-                    b.Property<DateTime?>("DataAlteracao")
-                        .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("DataCriacao")
                         .HasColumnType("TEXT");
@@ -87,8 +86,7 @@ namespace FitApp.Migrations
                 {
                     b.HasOne("FitApp.Models.UsuarioModel", null)
                         .WithMany("Registros")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("FitApp.Models.UsuarioModel", b =>
