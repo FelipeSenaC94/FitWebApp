@@ -96,13 +96,13 @@ namespace FitApp.Services.RegistrarService
             return servicesResponse; 
         }
 
-        public async Task<ServicesResponse<RegistrarModel>> GetRegistroById(int id)
+        public async Task<ServicesResponse<RegistrarModel>> GetRegistroByUserId(int id)
         {
             ServicesResponse<RegistrarModel> servicesResponse = new ServicesResponse<RegistrarModel>();
             
             try
             {
-                RegistrarModel registro = _context.Registros.FirstOrDefault(x => x.RegistrarId == id);
+                RegistrarModel registro = _context.Registros.FirstOrDefault(x => x.UserId == id);
                 
                 if (registro == null)
                 {

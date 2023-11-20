@@ -10,7 +10,7 @@ namespace FitApp.Services.RegistrarService
     {
         Task<ServicesResponse<List<RegistrarModel>>> GetRegistros();
         Task<ServicesResponse<List<RegistrarModel>>> CreateRegistros(RegistrarModel novoRegistro);
-        Task<ServicesResponse<RegistrarModel>> GetRegistroById(int id);
+        Task<ServicesResponse<RegistrarModel>> GetRegistroByUserId(int id);
         Task<ServicesResponse<List<RegistrarModel>>> UpdateRegistro(RegistrarModel editadoRegistro);
         Task<ServicesResponse<List<RegistrarModel>>> DeleteRegistro(int id);
     }

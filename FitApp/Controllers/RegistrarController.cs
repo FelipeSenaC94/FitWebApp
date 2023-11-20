@@ -14,7 +14,7 @@ using Microsoft.Extensions.Logging;
 namespace FitApp.Controllers
 {
     [ApiController]
-    [Route("api/registrar")]
+    [Route("api/[controller]")]
     public class RegistrarController : ControllerBase
     {
         private readonly IRegistrarInterface _registrarInterface;
@@ -25,6 +25,12 @@ namespace FitApp.Controllers
         }
         [HttpGet]
         public async Task<ActionResult<ServicesResponse<List<RegistrarModel>>>> GetRegistros()
+        {
+            return Ok( await _registrarInterface.GetRegistros());
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ServicesResponse<List<RegistrarModel>>>> GetRegistroByUserId(int id)
         {
             return Ok( await _registrarInterface.GetRegistros());
         }
